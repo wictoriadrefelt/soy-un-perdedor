@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Assignment 1;",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/wictoriadrefelt/soy-un-perdedor#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "express": "^4.18.1",
+    "node-fetch": "^3.2.10",
     "nodemon": "^2.0.19"
   }
 }
