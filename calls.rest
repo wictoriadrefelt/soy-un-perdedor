@@ -1,4 +1,6 @@
 
+
+
 GET http://localhost:3004/kanye
 
 
@@ -6,5 +8,21 @@ GET http://localhost:3004/kanye
 
 
 GET http://localhost:3004/
+
+
+###
+
+POST http://localhost:3004/kanye
+Content-Type: application/json
+
+{
+    "quote": "Home is where the heartache is"
+}
+
+###
+
+GET http://localhost:3004/quotes
+
+
 
 

@@ -1,6 +1,6 @@
 
 // creating and retriving elements
-let quote = ''
+let quote = undefined
 let quoteToSave = ''
 
 let textDiv = document.getElementById('gloriusQuote')
@@ -10,31 +10,65 @@ let generateQuote = document.getElementById('showQuote');
 
 
 
-const fetchQoute = () => {
+const fetchQuote = () => {
   fetch('http://localhost:3004/kanye').then((response) => {
   console.log(response)
   return response.json()
 }).then((data) => {
   //console.log(data)
  
-  let quote = data
-  //console.log(data[0].qoute)
-  console.log(typeof(quote))
-  console.log(typeof(quote.quote))
+  quote = data
+
   displayText(quote.quote); 
   quoteToSave = quote
   generateQuote.innerText = 'Get another one'
 })
+
+
 }
 
 
-let listOfQuotes = []; 
+const fetchList = () => {
+  fetch('http://localhost:3004/kanye').then((response) => {
+  console.log(response)
+  return response.json()
+}).then((data) => {
+  console.log(data, 'this is data')
+ 
+  //console.log(data[0].quote)
+  
+})
+}
+
+
+const getSavedQuotesFromServer = async () => {
+  try {
+    let quoteToAdd = {
+      quote: quote
+
+    }
+    
+    const response = await fetch('http://localhost:3004/kanye', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(quoteToAdd)
+    })
+    const body = await response.json() 
+    console.log(body)
+  }catch(err) {
+    console.log(err, 'bläääää')
+  }
+}
+
+
 
 
 // button for retreiving quote 
-const showQuote = (qoute) => {
-  fetchQoute();
-  generateQuote.innerText = qoute; 
+const showQuote = (quote) => {
+  fetchQuote();
+  generateQuote.innerText = quote; 
   
 }
 
@@ -47,10 +81,6 @@ generateQuote.addEventListener('click', showQuote)
 // displays quote from api 
 const displayText = (quote) => {
   
-/*  if(quote){
-  let save = document.createElement('button')
-  textDiv.append(save)
-}  */
 
 textDiv.innerHTML = quote
 
@@ -65,39 +95,49 @@ function addData(object) {
   listOfQuotes.push(object);
   //the fetched data is available only on this scope
   console.log(listOfQuotes, 'quote added')
+ /*  if(listOfQuotes){
+    let iterator = listOfQuotes.values()
+    for (let elements of iterator) {
+      let done = JSON.stringify(elements)
+     
+    }
+  } */
   
 }
 
-let saveButton = document.getElementById('save')
 
+let saveButton = document.getElementById('save')
 saveButton.addEventListener('click', function () {
-  addData(quoteToSave)
+  getSavedQuotesFromServer();
   
 
 })
 
 
-/* const showAllSaved = (data) => {
-  addData(data); 
-  console.log(listOfQuotes)
+
+// trying out geolocation, becuase - procrastination
+if('geolocation' in navigator){
+  console.log('geolocation avaliable')
+  navigator.geolocation.getCurrentPosition(position => {
+  console.log(position.coords.latitude)
+  console.log( position.coords.longitude)
+  console.log(position)
+  console.log(position.coords)
+})
+}else{
+  console.log('geolocation not avaliable')
 }
 
-showAllSaved(); */
 
 
 
 
 
 
-//import { displayCocktails } from '../controllers/users.js'
+
+
 
 /* 
-import fetch from 'node-fetch'
-
-//let drinkDisplay = document.getElementById('drinkDiv') 
-
-
-
 // fetch to recieve our data 
 fetch("https://api.kanye.rest")
   .then((response) => {
@@ -114,17 +154,8 @@ fetch("https://api.kanye.rest")
   })
   .catch((error) => console.error("FETCH ERROR:", error));
 
-
-  let qoutes = []
-
-  //
-
-export function displayKanye(data) {
-    
-    qoutes.push(data)
-    console.log(qoutes)
-    
-} */
+ */
+ 
 
 /* let show = document.createElement('button')
 show.innerHTML = 'hej'
