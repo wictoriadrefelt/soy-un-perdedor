@@ -4,9 +4,9 @@ let quote = undefined
 let quoteToSave = ''
 
 let textDiv = document.getElementById('gloriusQuote')
-
-
 let generateQuote = document.getElementById('showQuote');
+let displayList = document.getElementById('displayList')
+
 
 
 
@@ -45,9 +45,7 @@ const getSavedQuotesFromServer = async () => {
   try {
     let quoteToAdd = {
       quote: quote
-
     }
-    
     const response = await fetch('http://localhost:3004/kanye', {
       method: 'POST',
       headers: {
@@ -61,6 +59,37 @@ const getSavedQuotesFromServer = async () => {
     console.log(err, 'bläääää')
   }
 }
+
+
+
+const getSavedListFromServer = async () => {
+  try {
+    const response = await fetch('http://localhost:3004/quotes', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      }
+      
+    })
+    const body = await response.json() 
+    console.log(body)
+    displayList.innerHTML = body
+
+  }catch(err) {
+    console.log(err, 'bläääää')
+  }
+}
+
+let showAll = document.getElementById('showAll')
+showAll.addEventListener('click', function () {
+  getSavedListFromServer();
+  console.log('hej')
+  
+})
+
+
+
+
 
 
 
@@ -110,7 +139,6 @@ let saveButton = document.getElementById('save')
 saveButton.addEventListener('click', function () {
   getSavedQuotesFromServer();
   
-
 })
 
 
