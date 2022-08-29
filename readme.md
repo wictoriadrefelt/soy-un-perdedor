@@ -5,7 +5,7 @@ API used: https://api.kanye.rest
 
 
 Commands needed to start project; 
-in terminal type
+in terminal, type
 - 'npm init' 
 - 'npm start'
 

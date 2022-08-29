@@ -16,7 +16,7 @@ POST http://localhost:3004/kanye
 Content-Type: application/json
 
 {
-    "quote": "Home is where the heartache is"
+    "quote": "Three may keep a secret if two of them are dead"
     
 }
 
@@ -33,4 +33,4 @@ GET http://localhost:3004/quotes/94f83cb4-7bc7-4192-979b-c2cfb962a47d
 ####
 
 
-DELETE http://localhost:3004/quotes/c8316bd6-ba61-47f3-800c-09db1bbc2888
+DELETE http://localhost:3004/quotes/788dbdd4-b8fe-4575-ba7c-72f34e86429a

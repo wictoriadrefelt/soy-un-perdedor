@@ -31,7 +31,7 @@ const fetchList = () => {
   console.log(response)
   return response.json()
 }).then((data) => {
-  console.log(data, 'this is data')
+  console.log(data)
  
   //console.log(data[0].quote)
   
@@ -54,7 +54,7 @@ const getSavedQuotesFromServer = async () => {
     const body = await response.json() 
     console.log(body)
   }catch(err) {
-    console.log(err, 'bläääää')
+    console.log(err)
   }
 }
 
@@ -77,20 +77,6 @@ const getSavedListFromServer = async () => {
 }
 
 
-const deleteSavedQuote = async () => {
-  try {
-    const response = await fetch('http://localhost:3004/quotes/id', {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const quotes = await response.json() 
-    console.log(quotes)
-  }catch(err) {
-    console.log(err, 'bläääää')
-  }
-}
 
 
 
@@ -102,15 +88,13 @@ const findElements = (listToLoop) => {
     console.log(listToLoop)
     
     let element = listToLoop[i];
-    if(listToLoop !== listToLoop.length){
-
- 
+    
     let displayList = document.createElement('div')
     displayList.textContent = `quote: ${element.quote.quote}, with id: ${element.id} `
     
     bigContainer.append(displayList)
    
-    }
+    
   }   
   }
 
@@ -124,6 +108,23 @@ removeQuote.addEventListener('click', () => {
   removeSavedQuote();
   deleteSavedQuote();
 })
+
+
+const deleteSavedQuote = async () => {
+  try {
+    const response = await fetch('http://localhost:3004/quotes/id', {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    const quotes = await response.json() 
+    console.log(quotes)
+  }catch(err) {
+    console.log(err)
+  }
+}
+
 
 
 
@@ -201,44 +202,4 @@ if('geolocation' in navigator){
 
 
 
-
-
-
-/* 
-// fetch to recieve our data 
-fetch("https://api.kanye.rest")
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error("no");
-    }
-  })
-  .then(data => {
-    console.log(data);
-    displayCocktails(data)
-    showDrink();
-  })
-  .catch((error) => console.error("FETCH ERROR:", error));
-
- */
- 
-
-/* let show = document.createElement('button')
-show.innerHTML = 'hej'
-show.append(drinkDisplay) */
-
-/* let showDrink = (data) => {
-
-   // drinkDisplay.innerHTML = data.drinks[0].idDrink
-    console.log(data.drinks[0].idDrink)
-}
- */
-
-
-
-/* let show = () => {
-    let something = displayCocktails()
-    console.log(something, 'katt')
-} */
 

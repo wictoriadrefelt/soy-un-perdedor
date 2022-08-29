@@ -21,9 +21,9 @@ let savedQuotes = []
       app.use("/", express.static("client"))
         app.use(express.json())
         
-        //app.use(bodyParser.json());
         
-  // get quote from extenal api 
+        
+  // get quotes from extenal api 
         app.get("/kanye", async (req, res) => {
           try{
           const response = await fetch("https://api.kanye.rest")
@@ -43,14 +43,18 @@ let savedQuotes = []
 
     // save quote to api
     app.post('/kanye', (req, res) => {
-      const quote = req.body;
-      
-      if(!req.body.id && !quote){
+      try {
+        let quote = req.body
+      if(!req.body){
         throw new Error('no quote displayed to save')
+      
       }else{
+   
       savedQuotes.push({...quote, id: uuid()});
-      //console.log(savedQuotes)
       res.json(`Quote was saved`);
+     } }catch(err) {
+        res.status(418).json(err.message)
+    
       }
 })
 
@@ -58,10 +62,10 @@ let savedQuotes = []
 // retrieve all quotes
   app.get('/quotes', (req, res) => {
     try{
-      console.log(savedQuotes, 'all the qoutes')
+      console.log(savedQuotes)
       res.json(savedQuotes)
       }catch(err){
-        res.status(418).error(err)
+        res.status(418).json(err.message)
       }
   })
 
@@ -98,14 +102,13 @@ app.delete("/quotes/:id", (req, res) => {
       }
 
       const nameFromRemoved = savedQuotes[indexToRemove].quote
-      console.log(savedQuotes, 'hello')
-      console.log(savedQuotes[indexToRemove].quote.quote, 'what?')
+      
       console.log(savedQuotes[indexToRemove].quote, 'whaaaat?')
       console.log(savedQuotes[indexToRemove].id, 'the?')
 
       savedQuotes.splice(indexToRemove, 1)
 
-      res.json(`Quote ${nameFromRemoved} removed!`)
+      res.json(`Quote: ${nameFromRemoved} has been succesfully removed!`)
 
   } catch(err) {
       res.status(418).json(err.message)
