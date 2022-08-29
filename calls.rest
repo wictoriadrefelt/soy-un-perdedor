@@ -17,12 +17,20 @@ Content-Type: application/json
 
 {
     "quote": "Home is where the heartache is"
+    
 }
 
 ###
 
 GET http://localhost:3004/quotes
 
+###
 
 
+GET http://localhost:3004/quotes/94f83cb4-7bc7-4192-979b-c2cfb962a47d
 
+
+####
+
+
+DELETE http://localhost:3004/quotes/c8316bd6-ba61-47f3-800c-09db1bbc2888

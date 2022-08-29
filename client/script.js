@@ -5,8 +5,8 @@ let quoteToSave = ''
 
 let textDiv = document.getElementById('gloriusQuote')
 let generateQuote = document.getElementById('showQuote');
-let displayList = document.getElementById('displayList')
-
+//let displayList = document.getElementById('displayList')
+let bigContainer = document.getElementById('big-container')
 
 
 
@@ -15,10 +15,8 @@ const fetchQuote = () => {
   console.log(response)
   return response.json()
 }).then((data) => {
-  //console.log(data)
  
   quote = data
-
   displayText(quote.quote); 
   quoteToSave = quote
   generateQuote.innerText = 'Get another one'
@@ -61,44 +59,87 @@ const getSavedQuotesFromServer = async () => {
 }
 
 
-
 const getSavedListFromServer = async () => {
   try {
+    bigContainer.innerHTML = ''
     const response = await fetch('http://localhost:3004/quotes', {
       method: 'GET',
       headers: {
         "Content-Type": "application/json"
       }
-      
     })
-    const body = await response.json() 
-    console.log(body)
-    displayList.innerHTML = body
+    const quotes = await response.json() 
+    
+    findElements(quotes)
+  }catch(err) {
+    console.log(err, 'something went wrong')
+  }
+}
 
+
+const deleteSavedQuote = async () => {
+  try {
+    const response = await fetch('http://localhost:3004/quotes/id', {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    const quotes = await response.json() 
+    console.log(quotes)
   }catch(err) {
     console.log(err, 'bläääää')
   }
 }
 
-let showAll = document.getElementById('showAll')
-showAll.addEventListener('click', function () {
-  getSavedListFromServer();
-  console.log('hej')
+
+
+// loops through list of saved quotes
+const findElements = (listToLoop) => {
   
+  //displayList.innerHTML = ''
+  for(let i = 0; i < listToLoop.length; i++ ){
+    console.log(listToLoop)
+    
+    let element = listToLoop[i];
+    if(listToLoop !== listToLoop.length){
+
+ 
+    let displayList = document.createElement('div')
+    displayList.textContent = `quote: ${element.quote.quote}, with id: ${element.id} `
+    
+    bigContainer.append(displayList)
+   
+    }
+  }   
+  }
+
+  const removeSavedQuote = () => {
+    console.log('click')
+  }
+  
+
+let removeQuote = document.getElementById('delete'); 
+removeQuote.addEventListener('click', () => {
+  removeSavedQuote();
+  deleteSavedQuote();
 })
 
 
 
-
-
-
+let showAll = document.getElementById('showAll')
+showAll.addEventListener('click', function () {
+  
+  getSavedListFromServer();
+ 
+  
+})
 
 
 // button for retreiving quote 
 const showQuote = (quote) => {
   fetchQuote();
   generateQuote.innerText = quote; 
-  
 }
 
 generateQuote.addEventListener('click', showQuote)
@@ -109,8 +150,6 @@ generateQuote.addEventListener('click', showQuote)
 
 // displays quote from api 
 const displayText = (quote) => {
-  
-
 textDiv.innerHTML = quote
 
 
