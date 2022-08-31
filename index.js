@@ -103,8 +103,7 @@ app.delete("/quotes/:id", (req, res) => {
 
       const nameFromRemoved = savedQuotes[indexToRemove].quote
       
-      console.log(savedQuotes[indexToRemove].quote, 'whaaaat?')
-      console.log(savedQuotes[indexToRemove].id, 'the?')
+  
 
       savedQuotes.splice(indexToRemove, 1)
 

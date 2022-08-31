@@ -98,32 +98,6 @@ const findElements = (listToLoop) => {
   }   
   }
 
-  const removeSavedQuote = () => {
-    console.log('click')
-  }
-  
-
-let removeQuote = document.getElementById('delete'); 
-removeQuote.addEventListener('click', () => {
-  removeSavedQuote();
-  deleteSavedQuote();
-})
-
-
-const deleteSavedQuote = async () => {
-  try {
-    const response = await fetch('http://localhost:3004/quotes/id', {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const quotes = await response.json() 
-    console.log(quotes)
-  }catch(err) {
-    console.log(err)
-  }
-}
 
 
 
@@ -158,21 +132,6 @@ textDiv.innerHTML = quote
 
 
 
-function addData(object) {
-  // the push method add a new item to an array
-  // here it will be adding the object from the function getRandomUser each time it is called
-  listOfQuotes.push(object);
-  //the fetched data is available only on this scope
-  console.log(listOfQuotes, 'quote added')
- /*  if(listOfQuotes){
-    let iterator = listOfQuotes.values()
-    for (let elements of iterator) {
-      let done = JSON.stringify(elements)
-     
-    }
-  } */
-  
-}
 
 
 let saveButton = document.getElementById('save')
